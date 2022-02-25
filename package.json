@@ -1,0 +1,36 @@
+{
+  "name": "we564-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=text-summary mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supernarubat1/we564-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/supernarubat1/we564-backend/issues"
+  },
+  "homepage": "https://github.com/supernarubat1/we564-backend#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.3",
+    "supertest": "^6.2.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "mocha": "^9.2.1",
+    "nyc": "^15.1.0",
+    "should": "^13.2.3"
+  }
+}

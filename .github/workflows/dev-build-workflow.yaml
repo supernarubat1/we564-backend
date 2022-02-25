@@ -1,0 +1,29 @@
+name: Dev - Build Docker Image & Push to Azure
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+env:
+  REGISTRY: "acrwe564.azurecr.io"
+  APP_NAME: we564-backend
+  IMAGE_TAG: "0.0.1-SNAPSHOT"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: Docker Build Image & Push to Azure
+        uses: mr-smithers-excellent/docker-build-push@v5.6
+        with:
+          image: ${{ env.APP_NAME }}
+          tags: ${{ env.IMAGE_TAG }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
