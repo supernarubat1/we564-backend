@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const connect = require("./database/db");
-// const mongoose = require("mongoose");
 const Todo = require("./models/todo.model");
 const app = express();
 require("dotenv").config();
@@ -13,16 +12,11 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/api", async (req, res) => {
   if (process.env.NODE_ENV === "development") {
-    // await mongoose
-    //   .connect(process.env.MONGO_CON_STR_DEV)
-    //   .then(() => console.log("Database connection..."))
-    //   .catch((err) => console.error(err));
-
     res.json({
       message: "OK",
       env: process.env.NODE_ENV,
       MONGO_URL: process.env.MONGO_CON_STR_DEV,
-      new_ver: "0.0.3",
+      v: "0.0.4",
     });
   }
 
@@ -30,16 +24,11 @@ app.get("/api", async (req, res) => {
     process.env.NODE_ENV === "production" ||
     process.env.NODE_ENV === "test"
   ) {
-    // await mongoose
-    //   .connect(process.env.MONGO_CON_STR_POD)
-    //   .then(() => console.log("Database connection..."))
-    //   .catch((err) => console.error(err));
-
     res.json({
       message: "OK",
       env: process.env.NODE_ENV,
       MONGO_URL: process.env.MONGO_CON_STR_POD,
-      new_ver: "0.0.3",
+      v: "0.0.4",
     });
   }
 });
