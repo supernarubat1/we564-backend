@@ -1,30 +1,47 @@
 const express = require("express");
 const cors = require("cors");
 const connect = require("./database/db");
+const mongoose = require("mongoose");
 const Todo = require("./models/todo.model");
 const app = express();
 require("dotenv").config();
 
-connect();
+// connect();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/api", (req, res) => {
-  let MONGO_URL;
-
+app.get("/api", async (req, res) => {
   if (process.env.NODE_ENV === "development") {
-    MONGO_URL = process.env.MONGO_CON_STR_DEV;
+    await mongoose
+      .connect(process.env.MONGO_CON_STR_DEV)
+      .then(() => console.log("Database connection..."))
+      .catch((err) => console.error(err));
+
+    res.json({
+      message: "OK",
+      env: process.env.NODE_ENV,
+      MONGO_URL: process.env.MONGO_CON_STR_DEV,
+      new_ver: "0.0.2",
+    });
   }
 
   if (
     process.env.NODE_ENV === "production" ||
     process.env.NODE_ENV === "test"
   ) {
-    MONGO_URL = process.env.MONGO_CON_STR_POD;
-  }
+    await mongoose
+      .connect(process.env.MONGO_CON_STR_POD)
+      .then(() => console.log("Database connection..."))
+      .catch((err) => console.error(err));
 
-  res.json({ message: "OK", env: process.env.NODE_ENV, MONGO_URL: MONGO_URL });
+    res.json({
+      message: "OK",
+      env: process.env.NODE_ENV,
+      MONGO_URL: process.env.MONGO_CON_STR_POD,
+      new_ver: "0.0.2",
+    });
+  }
 });
 
 // ADD
