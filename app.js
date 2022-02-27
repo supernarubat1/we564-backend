@@ -16,7 +16,7 @@ app.get("/api", async (req, res) => {
       message: "OK",
       env: process.env.NODE_ENV,
       MONGO_URL: process.env.MONGO_CON_STR_DEV,
-      v: "0.0.4",
+      v: "0.0.5",
     });
   }
 
@@ -28,7 +28,7 @@ app.get("/api", async (req, res) => {
       message: "OK",
       env: process.env.NODE_ENV,
       MONGO_URL: process.env.MONGO_CON_STR_POD,
-      v: "0.0.4",
+      v: "0.0.5",
     });
   }
 });
